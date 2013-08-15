@@ -5,8 +5,16 @@
  * @param {Number}[] position Местоположение корабля.
  * @param {Number} capacity Грузоподъемность корабля.
  */
-function Vessel(name, position, capacity) {}
-
+function Vessel(name, position, capacity) {
+	this.name=name;
+	this.position=position;
+	this.capacity=capacity;
+}
+/**
+ * Текущая загруженность корабля
+ * @name engaged
+ */
+Vessel.prototype.cargoWeight =0;
 /**
  * Выводит текущее состояние корабля: имя, местоположение, доступную грузоподъемность.
  * @example
@@ -15,7 +23,7 @@ function Vessel(name, position, capacity) {}
  * vesserl.report(); // Грузовой корабль. Местоположение: 50,20. Груз: 200т.
  * @name Vessel.report
  */
-Vessel.prototype.report = function () {}
+Vessel.prototype.report = function () {return 'Корабль "'+this.name+'". Местоположение: '+this.position[0]+','+this.position[1]+'. Занято: '+this.cargoWeight+' из '+this.capacity+'кг';}
 
 /**
  * Выводит количество свободного места на корабле.
@@ -48,13 +56,20 @@ Vessel.prototype.flyTo = function (newPosition) {}
  * @param {Number}[] position Местоположение планеты.
  * @param {Number} availableAmountOfCargo Доступное количество груза.
  */
-function Planet(name, position, availableAmountOfCargo) {}
+function Planet(name, position, availableAmountOfCargo) {
+	this.name=name;
+	this.position=position;
+	this.availableAmountOfCargo=availableAmountOfCargo;
+}
 
 /**
  * Выводит текущее состояние планеты: имя, местоположение, количество доступного груза.
  * @name Planet.report
  */
-Planet.prototype.report = function () {}
+Planet.prototype.report = function () { 
+	
+	var strAvailableAmountOfCargo= (this.availableAmountOfCargo==0)?' Грузов нет.': ' Доступно груза: '+this.availableAmountOfCargo+'кг';
+	return 'Планета "'+this.name+'". Местоположение: '+this.position[0]+','+this.position[1]+'.'+strAvailableAmountOfCargo}
 
 /**
  * Возвращает доступное количество груза планеты.
