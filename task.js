@@ -11,11 +11,7 @@ function Vessel(name, position, capacity) {
 	this.capacity=capacity;//сделать приватным свойство
 	this.loaded=0;
 }
-/**
- * Текущая загруженность корабля
- * @name engaged
-Vessel.prototype.OccupiedWeight =0;
-*/
+
 /**
  * Выводит текущее состояние корабля: имя, местоположение, доступную грузоподъемность.
  * @example
@@ -30,13 +26,13 @@ Vessel.prototype.report = function () { return 'Корабль "'+this.name+'". 
  * Выводит количество свободного места на корабле.
  * @name Vessel.getFreeSpace
  */
-Vessel.prototype.getFreeSpace = function () { return this.capacity-this.loaded;}
+Vessel.prototype.getFreeSpace = function () { return this.capacity-this.loaded}
 
 /**
  * Выводит количество занятого места на корабле.
  * @name Vessel.getOccupiedSpace
  */
-Vessel.prototype.getOccupiedSpace = function () { return this.loaded;}
+Vessel.prototype.getOccupiedSpace = function () { return this.loaded}
 
 /**
  * Переносит корабль в указанную точку.
@@ -67,7 +63,7 @@ Vessel.prototype.flyTo = function (newPosition) {
 function Planet(name, position, availableAmountOfCargo) {
 	this.name=name;
 	this.position=position;
-	this.availableAmountOfCargo=availableAmountOfCargo;//сделать приватным
+	this.availableAmountOfCargo=availableAmountOfCargo;//сделать приватным		
 }
 
 /**
@@ -83,7 +79,7 @@ Planet.prototype.report = function () {
  * Возвращает доступное количество груза планеты.
  * @name Vessel.getAvailableAmountOfCargo
  */
-Planet.prototype.getAvailableAmountOfCargo = function () {return this.availableAmountOfCargo;}
+Planet.prototype.getAvailableAmountOfCargo = function () {return this.availableAmountOfCargo}
 
 /**
  * Загружает на корабль заданное количество груза.
@@ -103,8 +99,9 @@ Planet.prototype.loadCargoTo = function (vessel, cargoWeight) {
 			this.availableAmountOfCargo-=cargoWeight;
 		} else {
 			
+			/*Проверяем возможность загрузки груза*/
 			var currentAvailableAmountOfCargo= Math.min(((vessel.capacity-vessel.loaded)<0)?0:vessel.capacity-vessel.loaded, ((cargoWeight-this.availableAmountOfCargo)<0)?0:cargoWeight-this.availableAmountOfCargo);
-		
+			
 			console.log(currentAvailableAmountOfCargo);		
 		}
 	} else { console.log('Корабль "'+vessel.name+'" не может приземлится на планету "'+this.name+'"');}
@@ -126,8 +123,9 @@ Planet.prototype.unloadCargoFrom = function (vessel, cargoWeight) {
 			vessel.capacity-=cargoWeight;
 			this.availableAmountOfCargo+=cargoWeight;		
 		} else {
+			//выгружаем все что есть с корабля
 			this.availableAmountOfCargo+=vessel.loaded;
 			vessel.loaded=0;
-		}// костыль переделать
+		}
 	}
 }
