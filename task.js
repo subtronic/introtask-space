@@ -24,7 +24,7 @@ Vessel.prototype.OccupiedWeight =0;
  * vesserl.report(); // Грузовой корабль. Местоположение: 50,20. Груз: 200т.
  * @name Vessel.report
  */
-Vessel.prototype.report = function () { return 'Корабль "'+this.name+'". Местоположение: '+this.position[0]+','+this.position[1]+'. Занято: '+this.loaded+' из '+this.capacity+'кг';}
+Vessel.prototype.report = function () { return 'Корабль "'+this.name+'". Местоположение: '+this.position[0]+','+this.position[1]+'. Занято: '+this.loaded+' из '+this.capacity+'т.';}
 
 /**
  * Выводит количество свободного места на корабле.
@@ -76,7 +76,7 @@ function Planet(name, position, availableAmountOfCargo) {
  */
 Planet.prototype.report = function () { 
 	
-	var strAvailableAmountOfCargo= (this.availableAmountOfCargo==0)?' Грузов нет.': ' Доступно груза: '+this.availableAmountOfCargo+'кг';
+	var strAvailableAmountOfCargo= (this.availableAmountOfCargo==0)?' Грузов нет.': ' Доступно груза: '+this.availableAmountOfCargo+'т.';
 	return 'Планета "'+this.name+'". Местоположение: '+this.position[0]+','+this.position[1]+'.'+strAvailableAmountOfCargo}
 
 /**
@@ -99,7 +99,7 @@ Planet.prototype.loadCargoTo = function (vessel, cargoWeight) {
 		console.log('приземлился!');
 		if((vessel.capacity-vessel.loaded>=cargoWeight)&&(this.availableAmountOfCargo>=cargoWeight))
 		{
-			vessel.capacity=cargoWeight;
+			vessel.loaded=cargoWeight;
 			this.availableAmountOfCargo-=cargoWeight;
 		} else {
 			
@@ -123,7 +123,7 @@ Planet.prototype.unloadCargoFrom = function (vessel, cargoWeight) {
 	{
 		if (vessel.loaded>=cargoWeight)
 		{
-			vessel.capacity=-cargoWeight;
+			vessel.capacity-=cargoWeight;
 			this.availableAmountOfCargo+=cargoWeight;		
 		} else {
 			this.availableAmountOfCargo+=vessel.loaded;
